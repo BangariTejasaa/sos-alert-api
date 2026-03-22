@@ -1,23 +1,21 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req, res) {
+  try {
+    const { emails, lat, lng } = req.body;
 
-  const { emails, lat, lng } = req.body;
+    await resend.emails.send({
+      from: "onboarding@resend.dev",
+      to: emails,
+      subject: "SOS Emergency Alert",
+      text: `Victim is in danger. Location: https://maps.google.com/?q=${lat},${lng}`
+    });
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: "yourmail@gmail.com",
-      pass: "your_app_password"
-    }
-  });
+    res.status(200).json({ success: true });
 
-  await transporter.sendMail({
-    from: "yourmail@gmail.com",
-    to: emails,
-    subject: "SOS Emergency Alert",
-    text: `Victim is in danger. Location: https://maps.google.com/?q=${lat},${lng}`
-  });
-
-  res.status(200).json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 }
