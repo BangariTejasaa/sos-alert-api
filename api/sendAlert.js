@@ -3,8 +3,8 @@
 const nodemailer = require("nodemailer");
 
 // Environment variables
-const EMAIL_USER = process.env.VICTIM_EMAIL;
-const EMAIL_PASS = process.env.VICTIM_APP_PASSWORD;
+const EMAIL_USER = process.env.SENDER_EMAIL;
+const EMAIL_PASS = process.env.SENDER_APP_PASSWORD;
 
 module.exports = async function handler(req, res) {
   // Allow only POST
