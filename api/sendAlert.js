@@ -46,7 +46,7 @@ module.exports = async function handler(req, res) {
         <h1 style="color:red;">🚨 SOS ALERT!</h1>
         <p>${message || "SOS! I need help. Please reach me immediately."}</p>
         ${locationUrl ? `<p>Location: <a href="${locationUrl}">${locationUrl}</a></p>` : ""}
-        <p><b>Sent from SOS app</b></p>
+        
       `
     });
 
