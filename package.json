@@ -1,10 +1,6 @@
 {
   "name": "sos-alert",
   "version": "1.0.0",
-  "main": "sendAlert.js",
-  "scripts": {
-    "start": "node sendAlert.js"
-  },
   "dependencies": {
     "nodemailer": "^6.9.13"
   }
