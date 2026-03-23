@@ -4,8 +4,6 @@ const nodemailer = require("nodemailer");
 const EMAIL_USER = process.env.SENDER_EMAIL;
 const EMAIL_PASS = process.env.SENDER_APP_PASSWORD;
 
-console.log("EMAIL_USER:", EMAIL_USER, "EMAIL_PASS:", EMAIL_PASS ? "SET" : "NOT SET");
-
 module.exports = async function handler(req, res) {
   // CORS headers
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -21,10 +19,15 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ success: false, msg: "Only POST allowed" });
   }
 
-  const { message, contacts } = req.body || {};
+  const { message, contacts, lat, lng } = req.body || {};
+
   if (!contacts || contacts.length === 0) {
     return res.status(400).json({ success: false, msg: "No contacts provided" });
   }
+
+  const locationUrl = lat && lng
+    ? `http://maps.google.com/maps?q=${lat},${lng}`
+    : null;
 
   try {
     const transporter = nodemailer.createTransport({
@@ -41,7 +44,8 @@ module.exports = async function handler(req, res) {
       subject: "🚨 SOS Alert!",
       html: `
         <h1 style="color:red;">🚨 SOS ALERT!</h1>
-        <p>${message || "I am in danger! Please help me!"}</p>
+        <p>${message || "SOS! I need help. Please reach me immediately."}</p>
+        ${locationUrl ? `<p>Location: <a href="${locationUrl}">${locationUrl}</a></p>` : ""}
         <p><b>Sent from SOS app</b></p>
       `
     });
