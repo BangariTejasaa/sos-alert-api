@@ -37,7 +37,7 @@ module.exports = async function handler(req, res) {
       html: `
         <h1 style="color:red;">🚨 SOS ALERT!</h1>
         <p>${message || "I am in danger! Please help me!"}</p>
-        <p><b>Sent from victim's phone</b></p>
+        <p><b>Sent from SOS app</b></p>
       `
     });
 
