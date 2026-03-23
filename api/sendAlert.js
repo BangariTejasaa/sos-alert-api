@@ -5,6 +5,8 @@ const nodemailer = require("nodemailer");
 // Environment variables
 const EMAIL_USER = process.env.SENDER_EMAIL;
 const EMAIL_PASS = process.env.SENDER_APP_PASSWORD;
+// Add this RIGHT AFTER the env variable declarations at the top
+console.log("EMAIL_USER:", EMAIL_USER, "EMAIL_PASS:", EMAIL_PASS ? "SET" : "NOT SET");
 
 module.exports = async function handler(req, res) {
   // Allow only POST
