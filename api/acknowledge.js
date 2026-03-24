@@ -30,8 +30,6 @@ export default async function handler(req, res) {
             return res.status(404).json({ error: 'SOS event not found' });
         }
 
-        const eventData = eventDoc.data();
-
         // Update event in Firestore
         await eventRef.update({
             acknowledgedBy: contact,
@@ -51,14 +49,14 @@ export default async function handler(req, res) {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: process.env.GMAIL_USER,
-                pass: process.env.GMAIL_PASS,
+                user: process.env.SENDER_EMAIL,
+                pass: process.env.SENDER_APP_PASWORD,
             },
         });
 
         // Send email to victim
         await transporter.sendMail({
-            from: process.env.GMAIL_USER,
+            from: process.env.SENDER_EMAIL,
             to: process.env.VICTIM_EMAIL,
             subject: '✅ Help is on the way!',
             text: `Don't panic! ${contact} has seen your SOS and is on their way. Stay alert and stay safe.`,
@@ -68,7 +66,7 @@ export default async function handler(req, res) {
         for (const c of contacts) {
             if (c.email && c.name !== contact) {
                 await transporter.sendMail({
-                    from: process.env.GMAIL_USER,
+                    from: process.env.SENDER_EMAIL,
                     to: c.email,
                     subject: '🚨 SOS Update',
                     text: `${contact} has acknowledged the SOS alert and is on their way to help. No further action needed from you unless ${contact} needs backup.`,
@@ -83,5 +81,8 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: error.message });
     }
 }
+```
 
-
+Commit this → wait for deploy → test again with:
+```
+https://sos-alert-api-p8yw.vercel.app/api/acknowledge?id=FbUYgHWq09Ta0H4Rg5Iu&contact=Mom
