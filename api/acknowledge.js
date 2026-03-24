@@ -50,7 +50,7 @@ export default async function handler(req, res) {
             service: 'gmail',
             auth: {
                 user: process.env.SENDER_EMAIL,
-                pass: process.env.SENDER_APP_PASWORD,
+                pass: process.env.SENDER_APP_PASSWORD,
             },
         });
 
