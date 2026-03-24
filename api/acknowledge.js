@@ -80,9 +80,4 @@ export default async function handler(req, res) {
         console.error('Acknowledge error:', error);
         return res.status(500).json({ error: error.message });
     }
-}
-```
-
-Commit this → wait for deploy → test again with:
-```
-https://sos-alert-api-p8yw.vercel.app/api/acknowledge?id=FbUYgHWq09Ta0H4Rg5Iu&contact=Mom
+} 
