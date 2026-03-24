@@ -54,10 +54,10 @@ export default async function handler(req, res) {
             },
         });
 
-        // Send email to victim
+        // Send email to victim (SENDER_EMAIL = you!)
         await transporter.sendMail({
             from: process.env.SENDER_EMAIL,
-            to: process.env.VICTIM_EMAIL,
+            to: process.env.SENDER_EMAIL,
             subject: '✅ Help is on the way!',
             text: `Don't panic! ${contact} has seen your SOS and is on their way. Stay alert and stay safe.`,
         });
@@ -80,4 +80,4 @@ export default async function handler(req, res) {
         console.error('Acknowledge error:', error);
         return res.status(500).json({ error: error.message });
     }
-} 
+}
