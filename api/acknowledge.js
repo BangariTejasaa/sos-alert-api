@@ -59,7 +59,7 @@ export default async function handler(req, res) {
             from: process.env.SENDER_EMAIL,
             to: process.env.SENDER_EMAIL,
             subject: '✅ Help is on the way!',
-            text: `Don't panic! ${contact} has seen your SOS and is on their way. Stay alert and stay safe.`,
+            text: `${contact} is on the way,don't panic,stay alert!!!` 
         });
 
         // Send email to all other contacts
@@ -69,7 +69,7 @@ export default async function handler(req, res) {
                     from: process.env.SENDER_EMAIL,
                     to: c.email,
                     subject: '🚨 SOS Update',
-                    text: `${contact} has acknowledged the SOS alert and is on their way to help. No further action needed from you unless ${contact} needs backup.`,
+                    text: `${contact} is on the way,don't panic,stay alert.`,
                 });
             }
         }
