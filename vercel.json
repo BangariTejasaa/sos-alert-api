@@ -2,6 +2,10 @@
   "version": 2,
   "routes": [
     {
+      "src": "/go",
+      "dest": "/api/go.js"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/api/$1.js"
     },
